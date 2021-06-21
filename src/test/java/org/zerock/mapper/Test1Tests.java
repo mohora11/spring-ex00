@@ -39,7 +39,7 @@ public class Test1Tests {
 	public void testGetList() {
 		List<Test1VO> list = mapper.getList();
 
-		assertTrue(list.size() > 0);
+		assertTrue(list.size() > 0); //list의 size가 0보다 크면 초록바
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class Test1Tests {
 		Test1VO vo = mapper.read(3);
 		
 		assertEquals("비글", vo.getName()); // equals들은 맞으면 junit녹색이다
-		assertEquals(5, vo.getAge());
+		assertEquals(5, vo.getAge()); // 여기선 id가 3의 값의 name이 비글 age가 5가 동일하여 pass
 	}
 	
 	@Test

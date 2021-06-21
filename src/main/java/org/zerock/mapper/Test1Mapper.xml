@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
+<!-- xml파일은 보통 쿼리를 담당한다 -->
 <mapper namespace="org.zerock.mapper.Test1Mapper">
   
   
@@ -25,7 +25,7 @@
   	
   	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
   		INSERT INTO tbl_test1 (name, age)
-  		VALUES (#{name}, #{age})
+  		VALUES (#{name}, #{age}) <!-- name과 age는 알지만 id를 모를때 쓰는법 -->
   	</insert>
   	
   	<select id="read" resultType="org.zerock.domain.Test1VO">
