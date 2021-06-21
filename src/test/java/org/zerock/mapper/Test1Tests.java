@@ -72,7 +72,7 @@ public class Test1Tests {
 	public void testRead() {
 		Test1VO vo = mapper.read(3);
 		
-		assertEquals("비글", vo.getName());
+		assertEquals("비글", vo.getName()); // equals들은 맞으면 junit녹색이다
 		assertEquals(5, vo.getAge());
 	}
 	
