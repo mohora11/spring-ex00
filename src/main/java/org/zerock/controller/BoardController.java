@@ -49,25 +49,71 @@ public class BoardController {
 		service.register(board); // board객체가 가지고있는 프로퍼티 title,content,writer
 		
 		rttr.addFlashAttribute("result", board.getBno());
+		rttr.addFlashAttribute("messagTitle", "등록 성공.");
+		rttr.addFlashAttribute("messageBody", board.getBno() + "번 게시물 등록 되었습니다.");
 		
 		// /board/list redirect
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/get")
-	public void get(@RequestParam("bno") Long bno, Model model) {
+//	@GetMapping("/get")
+//	public void get(@RequestParam("bno") Long bno, Model model) {
+//		
+//		log.info("/get");
+//		model.addAttribute("board", service.get(bno));
+//	}
+	
+	@GetMapping({"/get", "/modify"})
+	public void get(Long bno, Model model) {
+		log.info("board/get method");
 		
-		log.info("/get");
-		model.addAttribute("board", service.get(bno));
+		//service에게 일 시킴
+		BoardVO vo = service.get(bno);
+		
+		// 결과를 모델에 넣음
+		model.addAttribute("board", vo);
+		
+		// forword
 	}
 	
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
+		// request parameter 수집 (알아서 됨)
 		log.info("modify:" + board);
 		
+		// service 일 시킴
+		boolean success = service.modify(board);
+		
+		// 결과를 모델(또는 FlashMap)에 넣고
 		if (service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("messagTitle", "수정 성공.");
+			rttr.addFlashAttribute("messageBody", "수정 되었습니다.");
+		}
+		
+		// forward or redirect
+		return "redirect:/board/list";
+	}
+	
+	@PostMapping("/remove")
+	public String remove(Long bno, RedirectAttributes rttr) {
+		// parameter 수집
+		
+		// service
+		boolean success = service.remove(bno);
+		
+		// 결과 담고
+		if (success) {
+			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("messagTitle", "삭제 성공.");
+			rttr.addFlashAttribute("messageBody", "삭제 되었습니다.");
 		}
 		return "redirect:/board/list";
 	}
+	
+	@GetMapping("/register")
+	public void register() {
+		// forward함 WEB-INF/views/board/register.jsp
+	}
+	
 }
