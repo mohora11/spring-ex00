@@ -50,23 +50,31 @@ public class BoardControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-//	@Test
-//	public void testList() throws Exception {
-//		ModelAndView mav = mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
-//				.andReturn()
-//				.getModelAndView();
-//				
-//				
-//		assertEquals("board/list", mav.getViewName());
-//		
-//		Map<String, Object> map = mav.getModel();
-//		
-//		Object o = map.get("list");
-//		assertNotNull(o);
-//		assertTrue(o instanceof List<?>);
-////		fail("fail");
-//	}
-//	
+	@Test
+	public void testList() throws Exception {
+		ModelAndView mav = mockMvc.perform(MockMvcRequestBuilders.get("/board/list")
+					.param("pageNum", "2")
+					.param("amount", "7"))
+				.andReturn()
+				.getModelAndView();
+				
+				
+		assertEquals("board/list", mav.getViewName());
+		
+		Map<String, Object> map = mav.getModel();
+		
+		Object o = map.get("list");
+		assertNotNull(o);
+		assertTrue(o instanceof List<?>);
+		
+		List<BoardVO> list = (List<BoardVO>) o;
+		assertEquals(7,  list.size());
+		
+//		Object o2 = map.get("criteria");
+//		assertNotNull(o2);
+//		fail("fail");
+	}
+	
 //	@Test
 //	public void testRegister() throws Exception {
 //		FlashMap fm = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
