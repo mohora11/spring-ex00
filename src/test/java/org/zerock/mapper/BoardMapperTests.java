@@ -140,5 +140,16 @@ public class BoardMapperTests {
 		assertEquals(10, list.size());
 	}
 	
+	@Test
+	public void testSearch() {
+		Criteria cri = new Criteria();
+//		cri.setType("TWC");
+//		cri.setType("TC");
+		cri.setType("");
+		cri.setKeyword("테스트");
+		
+		mapper.getListWithPaging(cri);
+	}
+	
 	
 }

@@ -5,6 +5,24 @@
 
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
+
+	<sql id="criteria">
+		<where>
+			<foreach item="type" separator="OR" collection="typeArr">
+				<choose>
+					<when test='type == "T"'>
+						title LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test='type == "W"'>
+						writer LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test='type == "C"'>
+						content LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+				</choose>
+			</foreach>
+		</where>
+	</sql>
   
   
   <select id="getList" resultType="org.zerock.domain.BoardVO">
@@ -28,7 +46,7 @@
   
   <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
     
-    <![CDATA[ 
+     
     SELECT 
     	bno bno,
     	title title,
@@ -36,19 +54,20 @@
     	writer writer,
     	regdate regdate,  
     	updatedate updateDate
-    	 
     FROM tbl_board
-    
+	
+	<include refid="criteria"></include> <!-- 파일 상단위 where절을 쓸수 있게함  -->
+	    
     ORDER BY bno DESC
-    
     LIMIT #{from}, #{amount}
   
-    ]]>
+    
      
   </select>
   
   <select id="getTotalCount" resultType="int">
   SELECT COUNT(*) FROM tbl_board
+  <include refid="criteria"></include>
   </select>
   
   <insert id="insert">
