@@ -1,4 +1,4 @@
-package org.zerock.controller.lecture;
+package org.zerock.controller.lecture.normal;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
