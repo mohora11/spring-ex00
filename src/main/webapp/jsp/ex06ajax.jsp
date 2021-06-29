@@ -101,10 +101,10 @@
 		$("#btn5").click(function() {
 			$.ajax({
 				url: "${appRoot}/rest06/sub05",
-				type: "put" // method로 교체가능
-			});
-		});
-	})
+				type: "put" //쿼리로 생각하자면 // method로 교체가능
+			});				// put = update, post = insert
+		});					// get = select
+	})						// delete = delete
 	</script>
 	<button id="btn5">BTN5</button>
 </div>

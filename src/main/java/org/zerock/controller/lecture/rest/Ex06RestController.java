@@ -39,8 +39,8 @@ public class Ex06RestController {
 	
 	
 	@RequestMapping("/sub05")
-//	@GetMapping
-//	@PostMapping
+//	@GetMapping // (value="/sub05", method = RequestMethod.GET)
+//	@PostMapping // 왼쪽의 annotation이 위의 코드를 간소화시킨것
 //	@DeleteMapping
 //	@PutMapping
 	public String method05(HttpServletRequest request) {
