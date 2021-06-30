@@ -117,7 +117,7 @@ public class BoardController {
 		
 		// 결과 담고
 		if (success) {
-			rttr.addFlashAttribute("result", "success");
+				rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("messagTitle", "삭제 성공.");
 			rttr.addFlashAttribute("messageBody", "삭제 되었습니다.");
 		}
