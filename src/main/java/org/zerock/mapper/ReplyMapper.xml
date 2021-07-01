@@ -57,5 +57,5 @@ WHERE rno = #{rno}
 	ORDER BY rno ASC	
 	 
 </select>
-
+ 
 </mapper>

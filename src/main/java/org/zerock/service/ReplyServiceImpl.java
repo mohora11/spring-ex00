@@ -40,7 +40,7 @@ public class ReplyServiceImpl implements ReplyService {
 		// TODO Auto-generated method stub
 		return mapper.update(vo);
 	}
-
+ 
 	@Override
 	public int remove(Long rno) {
 		// TODO Auto-generated method stub

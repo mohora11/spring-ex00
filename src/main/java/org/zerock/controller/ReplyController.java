@@ -68,7 +68,7 @@ public class ReplyController {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+	 
 	@RequestMapping(value="/{rno}", method = {RequestMethod.PUT, RequestMethod.PATCH})
 //	@PutMapping
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable Long rno) {

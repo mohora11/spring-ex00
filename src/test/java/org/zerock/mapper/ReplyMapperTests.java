@@ -76,7 +76,7 @@ public class ReplyMapperTests {
 		
 		vo = mapper.read(6L);
 		assertEquals(re, vo.getReply());
-
+ 
 	}
 	@Test
 	public void testGetList() {
