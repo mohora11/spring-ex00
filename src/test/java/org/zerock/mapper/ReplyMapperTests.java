@@ -90,4 +90,11 @@ public class ReplyMapperTests {
 		list = mapper.getList(bno);
 		assertTrue(list.size() == 0);
 	}
+	
+	@Test
+	public void testDeleteByBno() {
+		Long bno = 85L;
+		
+		mapper.deleteByBno(bno);
+	}
 }
