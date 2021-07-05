@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
@@ -48,11 +49,16 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String register(BoardVO board, 
+			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {	
+		
+		board.setFileName(file.getOriginalFilename());
+		
 		
 		// service에게 등록업무
-		service.register(board); // board객체가 가지고있는 프로퍼티 title,content,writer
+		service.register(board, file); // board객체가 가지고있는 프로퍼티 title,content,writer
 		
+		// redirect목적지로 정보 전달
 		rttr.addFlashAttribute("result", board.getBno());
 		rttr.addFlashAttribute("messagTitle", "등록 성공.");
 		rttr.addFlashAttribute("messageBody", board.getBno() + "번 게시물 등록 되었습니다.");
@@ -84,12 +90,13 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardVO board, Criteria cri,
+			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		// request parameter 수집 (알아서 됨)
 		log.info("modify:" + board);
 		
 		// service 일 시킴
-		boolean success = service.modify(board);
+		boolean success = service.modify(board, file); // 101줄 if(success) 가능
 		
 		// 결과를 모델(또는 FlashMap)에 넣고
 		if (service.modify(board)) {
