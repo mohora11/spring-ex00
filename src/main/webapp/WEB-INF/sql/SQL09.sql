@@ -21,3 +21,15 @@ SET writer = 'member';
 UPDATE tbl_reply
 SET replyer = 'member';
 
+ALTER TABLE tbl_board
+ADD FOREIGN KEY (writer) REFERENCES tbl_member(userid);
+
+ALTER TABLE tbl_reply
+ADD FOREIGN KEY (replyer) REFERENCES tbl_member(userid);
+
+
+
+
+
+
+
