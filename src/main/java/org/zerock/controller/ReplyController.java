@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class ReplyController {
 //	} 위 @AllArgsConstructor와 같음
 	
 	@PostMapping("/new")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
 		
 		int cnt = service.register(vo);
@@ -58,7 +60,8 @@ public class ReplyController {
 	
 //	@RequestMapping(value = "/{rno}, method = RequestMethod.DELETE)
 	@DeleteMapping("/{rno}")
-	public ResponseEntity<String> remove(@PathVariable Long rno) {
+	@PreAuthorize("principal.username == #vo.replyer")
+	public ResponseEntity<String> remove(@PathVariable Long rno, @RequestBody ReplyVO vo ) {
 							//				rno의 경로를 사용하기 위해서 라고 보면됨
 		int cnt = service.remove(rno);
 		
@@ -71,6 +74,7 @@ public class ReplyController {
 	 
 	@RequestMapping(value="/{rno}", method = {RequestMethod.PUT, RequestMethod.PATCH})
 //	@PutMapping
+	@PreAuthorize("principal.username == #vo.replyer")
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable Long rno) {
 		int cnt = service.modify(vo);
 		

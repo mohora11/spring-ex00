@@ -9,7 +9,13 @@ import org.springframework.security.core.userdetails.User;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 
+import lombok.Getter;
+
+// 668p
 public class CustomUser extends User {
+	
+	@Getter
+	private MemberVO member;
 
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -20,6 +26,8 @@ public class CustomUser extends User {
 		super(vo.getUserid(), vo.getUserpw(), vo.getAuthList().stream() 
 				.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
 		.collect(Collectors.toList()));
+		
+		member = vo;
 	}
 	
 }

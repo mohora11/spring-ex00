@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board, 
 			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {	
 		
@@ -90,6 +92,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
+	@PreAuthorize("principal.username == #board.writer")// 720p
+//	@PreAuthorize("authication.name == #board.writer")// spring.io
 	public String modify(BoardVO board, Criteria cri,
 			@RequestParam("file") MultipartFile file, RedirectAttributes rttr) {
 		// request parameter 수집 (알아서 됨)
@@ -116,7 +120,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long bno, Criteria cri, RedirectAttributes rttr) {
+	@PreAuthorize("principal.username == #writer")  // 720p
+	public String remove(Long bno, Criteria cri, RedirectAttributes rttr, String writer) {
 		// parameter 수집
 		
 		// service
@@ -124,7 +129,7 @@ public class BoardController {
 		
 		// 결과 담고
 		if (success) {
-				rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("messagTitle", "삭제 성공.");
 			rttr.addFlashAttribute("messageBody", "삭제 되었습니다.");
 		}
@@ -137,6 +142,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()") // 673p
 	public void register(@ModelAttribute("cri") Criteria cri) {
 		// forward함 WEB-INF/views/board/register.jsp
 	}

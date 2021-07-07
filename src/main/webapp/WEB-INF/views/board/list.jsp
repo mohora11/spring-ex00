@@ -66,7 +66,7 @@
 							</a>
 							
 						</td>
-						<td>${board.writer }</td>
+						<td>${board.writerName }</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd"
 								value="${board.regdate }" /></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd"

@@ -14,3 +14,18 @@ CREATE TABLE tbl_member_auth (
     FOREIGN KEY (userid) REFERENCES tbl_member(userid)
 );
 
+select * FROM tbl_member;	
+select * from tbl_member_auth;
+
+SELECT
+		m.userid userid,
+		m.userpw userpw,
+		m.username username, 
+		m.enabled enabled,
+		m.regdate regdate,
+		m.updateDate updateDate,
+		a.auth auth
+	FROM 
+		tbl_member m LEFT JOIN tbl_member_auth a ON m.userid = a.userid 
+	WHERE														
+		m.userid = 'admin';
