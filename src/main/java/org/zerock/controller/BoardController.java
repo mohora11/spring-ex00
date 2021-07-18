@@ -62,7 +62,7 @@ public class BoardController {
 		
 		// redirect목적지로 정보 전달
 		rttr.addFlashAttribute("result", board.getBno());
-		rttr.addFlashAttribute("messagTitle", "등록 성공.");
+		rttr.addFlashAttribute("messageTitle", "등록 성공.");
 		rttr.addFlashAttribute("messageBody", board.getBno() + "번 게시물 등록 되었습니다.");
 		
 		// /board/list redirect
