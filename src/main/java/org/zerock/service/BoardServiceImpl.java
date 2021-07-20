@@ -43,9 +43,9 @@ public class BoardServiceImpl implements BoardService {
 	public BoardServiceImpl() { // 이렇게 해야 업로드할때 삭제할때 둘다 쓸 수 있음 
 		this.bucketName = "choongang-mohora11";
 		this.profileName = "spring1";
-//		this.s3 = S3Client.builder()
-//				.credentialsProvider(ProfileCredentialsProvider.create(profileName))
-//				.build();
+		this.s3 = S3Client.builder()
+				.credentialsProvider(ProfileCredentialsProvider.create(profileName))
+				.build();
 	}
 	
 	
